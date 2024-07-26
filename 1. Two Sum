@@ -1,0 +1,39 @@
+package org.example;
+
+import java.util.Arrays;
+
+public class Main {
+
+  public static void main(String[] args) {
+
+    Solution solution = new Solution();
+    int[] nums = {-1,-2,-3,-4,-5};
+    int[] result = solution.twoSum(nums, -8);
+    System.out.printf(Arrays.toString(result));
+  }
+}
+
+class Solution {
+
+  public int[] twoSum(int[] nums, int target) {
+    int[] finalValue = new int[2];
+    return getInts(nums, target, 0, finalValue, nums[0]);
+  }
+
+  private static int[] getInts(int[] nums, int target, int startIndex, int[] finalValue, int findingValue) {
+    for (int i = startIndex; i < nums.length; i++) {
+      if (nums[i] <= target || findingValue <= nums[i]) {
+        findingValue = target - nums[startIndex];
+        if (nums[i] == findingValue && startIndex != i) {
+          finalValue[0] = startIndex;
+          finalValue[1] = i;
+          break;
+        }
+      }
+      if ((nums.length - 1) == i) {
+        getInts(nums, target, startIndex + 1, finalValue, findingValue);
+      }
+    }
+    return finalValue;
+  }
+}
